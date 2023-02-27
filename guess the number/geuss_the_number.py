@@ -6,7 +6,6 @@ guesses = 2
 
 while guess != n:
     if guesses > 0 and guess < n:
-        print(n)
         print("Gissa högre!")
         guesses = guesses - 1
         guess = int(input("Gissa igen: "))
