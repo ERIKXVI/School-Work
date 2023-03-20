@@ -5,19 +5,19 @@ looping = True
 
 while looping:
 
-    random_number = random.randint(1, 40000)
+    slumpnr = random.randint(1, 30000)
 
-    url = f"https://skatteverket.entryscape.net/rowstore/dataset/b4de7df7-63c0-4e7e-bb59-1f156a591763/json?_offset={random_number}&_limit=1"
+    url =f"https://skatteverket.entryscape.net/rowstore/dataset/b4de7df7-63c0-4e7e-bb59-1f156a591763/json?_offset={slumpnr}&_limit=1"
 
     req = requests.get(url)
-    data = req.json()
-    list_result = data['results']
-    personnummer = list_result[0]['testpersonnummer']
+    json_data = req.json()
+    list_results = json_data["results"]
+    personnummer = list_results[0]['testpersonnummer']
 
-    print (list_result[2: 12])
 
-    input("\nvill du välja ett nytt personnummer? (j/n)\n")
+    print(personnummer[2: 12])
 
-if (input == "n"):
-    looping = False
-    print ("Tack för att du använde programmet!")
+    svar = input("\nvill ni slumpa ett personnummer till? j/n\n")
+
+    if (svar == "n"):
+        break
