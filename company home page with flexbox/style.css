@@ -1,0 +1,42 @@
+body {
+    background: #aaa7a7;
+    color: #ffffff;
+
+}
+
+.navbar {
+    color: #ffffff;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a {
+    display: block;
+    color: #ffffff;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.title {
+    text-align: center;
+    background-image: url(hcj091619162-16.webp);
+}
+
+.title h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+    padding: 1em;
+    font-family: 'Tahoma', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: italic;
+}
