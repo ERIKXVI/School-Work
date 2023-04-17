@@ -12,7 +12,7 @@ class Student:
 
 class StudentManagement:
     def __init__(self):
-        self.filename = "students.txt"
+        self.filename = "students.dat"
         self.data = []
         self.read_from_file()
 
