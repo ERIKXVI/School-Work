@@ -67,7 +67,6 @@ class Bank:
         else:
             print(f"Account {account_id} not found")
 
-# Load the accounts from file
 bank = Bank()
 bank.load_accounts()
 
