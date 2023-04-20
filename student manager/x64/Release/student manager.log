@@ -1,0 +1,7 @@
+﻿  main.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\filesystem(13): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
+D:\coding\projects\School-Work\student manager\main.cpp(9,21): error C2039: 'filesystem': is not a member of 'std'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.35.32215\include\random(34,1): message : see declaration of 'std'
+D:\coding\projects\School-Work\student manager\main.cpp(9,31): error C2878: 'filesystem': a namespace or class of this name does not exist
+D:\coding\projects\School-Work\student manager\main.cpp(80,9): error C2653: 'fs': is not a class or namespace name
+D:\coding\projects\School-Work\student manager\main.cpp(80,13): error C3861: 'exists': identifier not found

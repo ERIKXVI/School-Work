@@ -44,7 +44,7 @@ class StudentManagement:
         age = int(input("Enter age: "))
         program = input("Enter program: ")
         phone = int(input("Enter Phone: "))
-        id = str(uuid.uuid4())[:8] # generate a unique id
+        id = str(uuid.uuid4())[:8]
         student = Student(id, name, age, program, phone)
         self.data.append(student)
 
