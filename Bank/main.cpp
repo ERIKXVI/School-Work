@@ -37,6 +37,7 @@ void createAccount(vector<account>& accounts)
 	cin >> newaccount.balance;
 	cout << "Enter your pin: ";
 	cin >> newaccount.pin;
+	cout << "Account created. Your account id is: " << newaccount.id << endl;
 	accounts.push_back(newaccount);
 };
 
@@ -54,7 +55,7 @@ int login(vector<account>& accounts)
 		{
 			if (checkPin(pin, accounts[i].pin))
 			{
-				cout << "Login successful" << accounts[i].name << "!" << endl;
+				cout << "Login successful " << accounts[i].name << "!" << endl;
 				return i;
 			}
 		}
@@ -124,7 +125,6 @@ void displayAccountMenu()
 int main()
 {
 	system ("cls");
-	system ("color 0a");
 	vector<account> accounts;
 	ifstream accountfile("accounts.txt");
 	ifstream logfile("log.txt");
@@ -140,6 +140,7 @@ int main()
 			if (index != -1) {
 				int choice;
 				do {
+					system("cls");
 					displayAccountMenu();
 					cin >> choice;
 					switch (choice) {

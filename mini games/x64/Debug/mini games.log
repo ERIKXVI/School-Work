@@ -1,0 +1,15 @@
+﻿  hangman.cpp
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(19,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(69,17): error C2084: function 'std::string Hangman::randomWord(void)' already has a body
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(27,17): message : see previous definition of 'randomWord'
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(76,1): error C2556: 'int Hangman::isGuessed(char)': overloaded function differs only by return type from 'bool Hangman::isGuessed(char)'
+D:\coding\projects\School-Work\mini games\games\hangman.h(19,10): message : see declaration of 'Hangman::isGuessed'
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(75,14): error C2371: 'Hangman::isGuessed': redefinition; different basic types
+D:\coding\projects\School-Work\mini games\games\hangman.h(19,10): message : see declaration of 'Hangman::isGuessed'
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(93,14): error C2065: 'isGuessed': undeclared identifier
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(93,13): error C2171: '!': illegal on operands of type 'bool (char)'
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(107,13): error C2065: 'isGuessed': undeclared identifier
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(135,13): error C2065: 'isGuessed': undeclared identifier
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(135,46): error C3867: 'Hangman::isGuessed': non-standard syntax; use '&' to create a pointer to member
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(135,26): error C2446: '!=': no conversion from 'const unsigned __int64' to 'bool (__cdecl Hangman::* )(char)'
+D:\coding\projects\School-Work\mini games\games\hangman.cpp(135,42): message : There are no conversions from integral values to pointer-to-member values
