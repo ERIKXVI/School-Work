@@ -21,9 +21,15 @@
     <ClCompile Include="games\hangman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="games\tictactoe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="games\hangman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\tictaktoe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

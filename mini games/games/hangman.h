@@ -16,7 +16,7 @@ private:
     std::string guessed;
     std::string wrong;
     std::string displayWord();
-    bool isGuessed();
+    bool isGuessed(char c);
     bool isWrong(char c);
     bool isGameOver();
     void printHangman();

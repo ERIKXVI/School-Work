@@ -10,11 +10,7 @@ using namespace std;
 
 Hangman::Hangman() {
     // Read the words from the file
-    ifstream infile("words.txt");
-    string word;
-    while (infile >> word) {
-        words.push_back(word);
-    }
+    words = { "umbrella", "laptop", "telephone", "elephant", "mountain", "candle", "skyscraper", "guitar", "sunflower" };
 
     srand(time(nullptr));
 
@@ -30,11 +26,11 @@ string Hangman::randomWord() {
 }
 
 void Hangman::play() {
-    
+
     while (!isGameOver())
     {
         printHangman();
-        printWord();
+        cout << displayWord() << endl;
         printWrong();
         printGuesses();
 
@@ -50,7 +46,7 @@ void Hangman::play() {
         else if (isWrong(c))
         {
             cout << "The letter is not in the word!" << endl;
-        } 
+        }
         else
         {
             guessed += c;
@@ -66,14 +62,8 @@ void Hangman::play() {
     printGameOver();
 }
 
-string Hangman::randomWord()
-{
-    int index = rand() % words.size();
-    return words[index];
-}
-
 bool Hangman::isGuessed(char c) {
-	return guessed.find(c) != string::npos;
+    return guessed.find(c) != string::npos;
 }
 
 bool Hangman::isWrong(char c) {
@@ -91,8 +81,8 @@ bool Hangman::isGameOver()
     {
         if (!isGuessed(c))
         {
-			return false;
-		}
+            return false;
+        }
     }
 
     return true;
@@ -105,18 +95,20 @@ string Hangman::displayWord()
     {
         if (isGuessed(c))
         {
-			displayed += c;
-		}
+            displayed += c;
+        }
         else
         {
-			displayed += "_";
-		}
+            displayed += "_";
+        }
+        displayed += " "; // added space to separate the letters
     }
     return displayed;
 }
 
-void Hangman::printHangman() 
+void Hangman::printHangman()
 {
+    system("cls");
     cout << endl << "  +--+ " << endl;
     cout << "  |    | " << endl;
     cout << "  |    " << (gueesLeft < 10 ? "O" : "") << endl;
@@ -125,22 +117,6 @@ void Hangman::printHangman()
     cout << "  |   " << (gueesLeft < 5 ? "/" : " ") << " " << (gueesLeft < 6 ? "\\" : "") << endl;
     cout << "  | " << endl;
     cout << "-----" << endl;
-}
-
-void Hangman::printWord()
-{
-    for (char c : word)
-    {
-        if (isGuessed(c) != std::string::npos)
-        {
-            std::cout << c << " ";
-        } 
-        else
-        {
-            std::cout << "_ ";
-        }
-    }
-    std::cout << std::endl;
 }
 
 void Hangman::printWrong()
@@ -155,12 +131,7 @@ void Hangman::printWrong()
 
 void Hangman::printGuesses()
 {
-    cout << "Guesses left: ";
-    for (char c : guessed)
-    {
-        cout << c << " ";
-    }
-    cout << endl;
+   cout << "Guesses left: " << gueesLeft << endl;
 }
 
 void Hangman::printGameOver()
