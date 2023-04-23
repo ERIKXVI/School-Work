@@ -3,6 +3,7 @@
 #include "games/hangman.h"
 #include "games/tictaktoe.h"
 #include "games/blackjack.h"
+#include "games/snake.h"
 
 using namespace std;
 
