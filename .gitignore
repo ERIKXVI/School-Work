@@ -1,0 +1,6 @@
+
+*.ipch
+*.db
+*.vsidx
+*.lock
+mini games/.vs/mini games/v17/.suo
