@@ -5,13 +5,11 @@ import bil
 
 looping = True #För att avsluta programmet
 
-
 volvo_svart = bil.Bil("Volvo", "Svart", 3)
 volvo_vit = bil.Bil("Volvo", "Vit", 1)
 ferrari_red = bil.Bil("Ferrari", "Röd", 2)
 
 billista = [volvo_svart, volvo_vit, ferrari_red]
-
 
 print("Första bil= " + billista[0].fabrikat)
 
@@ -50,7 +48,6 @@ while looping:
     print("Lager Saldo efter: " + nytt_lagersaldo_string + " st" )
     print("--------------------------------------------------------\n")
 
-    
     #Avslutar programmet
     go = input("\n Vill du avsluta programmet? j/n ")
     print("\n")
