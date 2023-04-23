@@ -2,6 +2,7 @@
 #include <string>
 #include "games/hangman.h"
 #include "games/tictaktoe.h"
+#include "games/blackjack.h"
 
 using namespace std;
 
@@ -70,8 +71,23 @@ int main()
             break;
         }
         case 3:
-            cout << "blackjack is not implemented yet!" << endl;
+        {
+            blackjack blackjack;
+            blackjack.play();
+
+            // Clear screen after game is finished
+            system("cls");
+
+            // Ask if player wants to play again
+            char again;
+            cout << "Play again? (Y/N): ";
+            cin >> again;
+            if (tolower(again) == 'y')
+            {
+                playAgain = true;
+            }
             break;
+        }
         case 4:
             cout << "snake is not implemented yet!" << endl;
             break;
