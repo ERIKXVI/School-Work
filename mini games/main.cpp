@@ -90,8 +90,31 @@ int main()
             break;
         }
         case 4:
-       
+        {
+            Snake snake(20, 20);
+            snake.draw();
 
+            while (!snake.isGameOver())
+            {
+                char key;
+                cin >> key;
+                snake.input(key);
+                snake.move();
+                snake.draw();
+            }
+
+            cout << "Game over! Your score was: " << snake.getScore() << endl;
+
+            // Ask if player wants to play again
+            char again;
+            cout << "Play again? (Y/N): ";
+            cin >> again;
+            if (tolower(again) == 'y')
+            {
+                playAgain = true;
+            }
+            break;
+        }
 
         case 5:
             cout << "minesweeper is not implemented yet!" << endl;

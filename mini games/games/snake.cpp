@@ -6,15 +6,19 @@
 
 using namespace std;
 
-Snake::Snake(int witdh, int height) : width(witdh), height(height), gameOver(false)
+Snake::Snake(int width, int height) : width(width), height(height), gameOver(false), nTail(0), score(0), tailX(new int[width * height]), tailY(new int[width * height])
 {
-	srand(time(nullptr));
-	x = width / 2;
-	y = height / 2;
-	fruitX = rand() % width;
-	fruitY = rand() % height;
-	score = 0;
-	dir = Direction::STOP;
+    srand(time(nullptr));
+    x = width / 2;
+    y = height / 2;
+    fruitX = rand() % width;
+    fruitY = rand() % height;
+}
+
+Snake::~Snake()
+{
+    delete[] tailX;
+    delete[] tailY;
 }
 
 void Snake::draw()
@@ -47,107 +51,130 @@ void Snake::draw()
                 }
                 if (!printed)
                     cout << " ";
-			}
+            }
             if (j == width - 1)
                 cout << "#";
-		}
+        }
         cout << endl;
-	}
+    }
 
     for (int i = 0; i < width + 2; i++)
-		cout << "#";
+        cout << "#";
     cout << endl;
-	cout << "Score: " << score << endl;
+    cout << "Score: " << score << endl;
 }
 
-void Snake::input()
+void Snake::input(char key)
 {
     switch (key)
     {
     case 'a':
         if (dir != Direction::RIGHT)
-			dir = Direction::LEFT;
+            dir = Direction::LEFT;
         break;
 
     case 'd':
-		if (dir != Direction::LEFT)
+        if (dir != Direction::LEFT)
             dir = Direction::RIGHT;
-		break;
+        break;
 
     case 'w':
         if (dir != Direction::DOWN)
-			dir = Direction::UP;
-    break;
+            dir = Direction::UP;
+        break;
 
     case 's':
-		if (dir != Direction::UP)
+        if (dir != Direction::UP)
             dir = Direction::DOWN;
         break;
 
     case 'x':
         gameOver = true;
-		break;
+        break;
     }
 }
 
-void Snake::move()
-{
+void Snake::move() {
     // Move the tail
-    int prevX = tailX[0];
-    int prevY = tailY[0];
-    int prev2X, prev2Y;
-    tailX[0] = x;
-    tailY[0] = y;
-    for (int i = 1; i < nTail; i++)
-    {
-        prev2X = tailX[i];
-        prev2Y = tailY[i];
-        tailX[i] = prevX;
-        tailY[i] = prevY;
-        prevX = prev2X;
-        prevY = prev2Y;
+    if (nTail > 0) {
+        int prevX = tailX[0];
+        int prevY = tailY[0];
+        tailX[0] = x;
+        tailY[0] = y;
+        int tempX, tempY;
+        for (int i = 1; i < nTail; i++) {
+            tempX = tailX[i];
+            tempY = tailY[i];
+            tailX[i] = prevX;
+            tailY[i] = prevY;
+            prevX = tempX;
+            prevY = tempY;
+        }
     }
 
     // Move the head
-    switch (dir)
-    {
-        case Direction::LEFT:
-			x--;
-			break;
-
-        case Direction::RIGHT:
-            x++;
-            break;
-
-        case Direction::UP:
-			y--;
-			break;
-
-        case Direction::DOWN:
-            y++;
-            break;
-        default:
-			break;
+    switch (dir) {
+    case Direction::LEFT:
+        x--;
+        break;
+    case Direction::RIGHT:
+        x++;
+        break;
+    case Direction::UP:
+        y--;
+        break;
+    case Direction::DOWN:
+        y++;
+        break;
+    default:
+        break;
     }
 
-    // Check if snake is out of bounds
-    if (x < 0 || x> width || y < 0 || y > height)
-		gameOver = true;
+    // Check for collision with fruit
+    if (x == fruitX && y == fruitY) {
+        score++;
+        nTail++;
+        fruitX = rand() % width;
+        fruitY = rand() % height;
+    }
 
-    // Check if snake eats fruit
-    if (x == fruitX && y == fruitY)
-    {
-		score += 10;
-		fruitX = rand() % width;
-		fruitY = rand() % height;
-		nTail++;
-	}
-
-    // Check if snake collides with itself
-	for (int i = 0; i < nTail; i++)
-    { 
-        if (tailX[i] == x && tailY[i] == y)
+    // Check for collision with tail or wall
+    for (int i = 0; i < nTail; i++) {
+        if (tailX[i] == x && tailY[i] == y) {
             gameOver = true;
+        }
+    }
+    if (x < 0 || x >= width || y < 0 || y >= height) {
+        gameOver = true;
     }
 }
-		
+
+bool Snake::checkCollision(int headX, int headY)
+{
+    // Check for collision with walls
+    if (headX >= width || headX < 0 || headY >= height || headY < 0)
+    {
+        return true;
+    }
+
+    // Check for collision with tail
+    for (int i = 0; i < nTail; i++)
+    {
+        if (tailX[i] == headX && tailY[i] == headY)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int Snake::getScore()
+{
+    return score;
+}
+
+bool Snake::isGameOver()
+{
+    return gameOver;
+}
