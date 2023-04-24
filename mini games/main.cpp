@@ -90,8 +90,9 @@ int main()
             break;
         }
         case 4:
-            cout << "snake is not implemented yet!" << endl;
-            break;
+       
+
+
         case 5:
             cout << "minesweeper is not implemented yet!" << endl;
             break;

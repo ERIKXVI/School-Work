@@ -1,0 +1,8 @@
+﻿  blackjack.cpp
+C:\Users\erikf\Documents\GitHub\School programing\School-Work\mini games\games\blackjack.cpp(22,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  hangman.cpp
+C:\Users\erikf\Documents\GitHub\School programing\School-Work\mini games\games\hangman.cpp(15,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  tictactoe.cpp
+  main.cpp
+  Generating Code...
+  mini games.vcxproj -> C:\Users\erikf\Documents\GitHub\School programing\School-Work\mini games\x64\Debug\mini games.exe
