@@ -4,3 +4,8 @@
 *.vsidx
 *.lock
 mini games/.vs/mini games/v17/.suo
+*.tlog
+*.db-shm
+*.opendb
+*.db-wal
+växlare/.vs/växlare/v17/.suo
