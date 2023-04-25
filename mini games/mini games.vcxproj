@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="games\blackjack.cpp" />
     <ClCompile Include="games\hangman.cpp" />
+    <ClCompile Include="games\minesweeper.cpp" />
     <ClCompile Include="games\snake.cpp" />
     <ClCompile Include="games\tictactoe.cpp" />
     <ClCompile Include="main.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="games\blackjack.h" />
     <ClInclude Include="games\hangman.h" />
+    <ClInclude Include="games\minesweeper.h" />
     <ClInclude Include="games\snake.h" />
     <ClInclude Include="games\tictaktoe.h" />
   </ItemGroup>
