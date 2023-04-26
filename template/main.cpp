@@ -1,93 +1,71 @@
 #include <Windows.h>
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstanse, LPSTR lpCmdLine, int nCmdShow)
 {
-    // Register the window class
-    const char CLASS_NAME[] = "My Window Class";
+	const char CLASS_NAME[] = "Sample Window Class";
 
-    WNDCLASS wc = {};
+	WNDCLASS wc = { };
 
-    wc.lpfnWndProc = WndProc;
-    wc.hInstance = hInstance;
-    wc.lpszClassName = CLASS_NAME;
+	wc.lpfnWndProc = wndProc;
+	wc.hInstance = hInstance;
+	wc.lpszClassName = CLASS_NAME;
 
-    RegisterClass(&wc);
+	RegisterClass(&wc);
 
-    // Create the window
-    HWND hwnd = CreateWindowEx(
-        0,                              // Optional window styles
-        CLASS_NAME,                     // Window class
-        "My App",                       // Window text
-        WS_OVERLAPPEDWINDOW,            // Window style
+	HWND hwnd = CreateWindowEx(
+		0,
+		CLASS_NAME,
+		"TEST",
+		WS_OVERLAPPEDWINDOW,
+		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+		NULL,
+		NULL,
+		hInstance,
+		NULL
+		);
 
-        // Size and position
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+	if (hwnd == NULL)
+	{
+		return 0;
+	}
 
-        NULL,       // Parent window    
-        NULL,       // Menu
-        hInstance,  // Instance handle
-        NULL        // Additional application data
-    );
+	ShowWindow(hwnd, nCmdShow);
 
-    if (hwnd == NULL)
-    {
-        return 0;
-    }
+	MSG msg = { };
 
-    // Show the window
-    ShowWindow(hwnd, nCmdShow);
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
 
-    // Run the message loop
-    MSG msg = {};
-
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-
-    return 0;
+	return 0;
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK wndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    switch (message)
-    {
-    case WM_CREATE:
-    {
-        // Create a button
-        HWND button = CreateWindow(
-            "BUTTON",
-            "Click me",
-            WS_VISIBLE | WS_CHILD,
-            10, 10, 100, 30,
-            hwnd,
-            NULL,
-            NULL,
-            NULL
-        );
-        break;
-    }
+	switch (message)
+	{
+	case WM_CREATE:
 
-    case WM_COMMAND:
-    {
-        // Handle button click
-        if (LOWORD(wParam) == BN_CLICKED)
-        {
-            MessageBox(hwnd, "Button clicked!", "Message", MB_OK);
-        }
-        break;
-    }
 
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
 
-    default:
-        return DefWindowProc(hwnd, message, wParam, lParam);
-    }
+		break;
 
-    return 0;
+	case WM_COMMAND:
+
+
+
+		break;
+
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+
+	default:
+		return DefWindowProc(hwnd, message, wParam, lParam);
+	}
+	return 0;
 }
