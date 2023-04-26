@@ -4,6 +4,7 @@
 #include "games/tictaktoe.h"
 #include "games/blackjack.h"
 #include "games/snake.h"
+#include "games/minesweeper.h"
 
 using namespace std;
 
@@ -117,8 +118,24 @@ int main()
         }
 
         case 5:
-            cout << "minesweeper is not implemented yet!" << endl;
+        {
+            Minesweeper minesweeper;
+            minesweeper.playGame();
+
+            // Clear screen after game is finished
+            system("cls");
+
+            // Ask if player wants to play again
+            char again;
+            cout << "Play again? (Y/N): ";
+            cin >> again;
+            if (tolower(again) == 'y')
+            {
+                playAgain = true;
+            }
             break;
+        }
+
         case 6:
             cout << "space invaders is not implemented yet!" << endl;
             break;
