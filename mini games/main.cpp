@@ -4,7 +4,7 @@
 #include "games/tictaktoe.h"
 #include "games/blackjack.h"
 #include "games/snake.h"
-#include "games/minesweeper.h"
+#include "games/battleship.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ void mainmenu()
     cout << "2. Tic Tac Toe" << endl;
     cout << "3. Blackjack" << endl;
     cout << "4. Snake" << endl;
-    cout << "5. Minesweeper" << endl;
+    cout << "5. BattleShip" << endl;
     cout << "6. Space Invaders" << endl;
     cout << "7. Pacman" << endl;
     cout << "8. Exit" << endl;
@@ -119,20 +119,20 @@ int main()
 
         case 5:
         {
-            Minesweeper minesweeper;
-            minesweeper.playGame();
+            BattleshipGame BattleshipGame;
+            BattleshipGame.play();
 
             // Clear screen after game is finished
             system("cls");
-
+            
             // Ask if player wants to play again
             char again;
             cout << "Play again? (Y/N): ";
             cin >> again;
             if (tolower(again) == 'y')
             {
-                playAgain = true;
-            }
+				playAgain = true;
+			}
             break;
         }
 
