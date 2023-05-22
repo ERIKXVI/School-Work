@@ -1,0 +1,5 @@
+﻿  battleship.cpp
+  main.cpp
+C:\Users\erikf\Documents\GitHub\School programing\School-Work\mini games\main.cpp(122,28): error C2512: 'BattleshipGame': no appropriate default constructor available
+C:\Users\erikf\Documents\GitHub\School programing\School-Work\mini games\games\battleship.h(7,7): message : see declaration of 'BattleshipGame'
+  Generating Code...

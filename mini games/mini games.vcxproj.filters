@@ -30,7 +30,7 @@
     <ClCompile Include="games\snake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="games\minesweeper.cpp">
+    <ClCompile Include="games\battleship.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClInclude Include="games\snake.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\minesweeper.h">
+    <ClInclude Include="games\battleship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
