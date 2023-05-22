@@ -119,20 +119,28 @@ int main()
 
         case 5:
         {
-            BattleshipGame BattleshipGame;
-            BattleshipGame.play();
+            bool playAgain = false;
 
-            // Clear screen after game is finished
-            system("cls");
-            
-            // Ask if player wants to play again
-            char again;
-            cout << "Play again? (Y/N): ";
-            cin >> again;
-            if (tolower(again) == 'y')
-            {
-				playAgain = true;
-			}
+            do {
+                BattleshipGame battleshipGame(5);
+                battleshipGame.play();
+
+                // Clear screen after game is finished
+                system("cls");
+
+                // Ask if player wants to play again
+                char again;
+                cout << "Play again? (Y/N): ";
+                cin >> again;
+                if (tolower(again) == 'y') {
+                    playAgain = true;
+                    system("cls");
+                }
+                else {
+                    playAgain = false;
+                }
+            } while (playAgain);
+
             break;
         }
 

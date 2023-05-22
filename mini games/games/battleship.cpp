@@ -1,144 +1,78 @@
 #include "battleship.h"
 #include <iostream>
 
-BattleshipGame::BattleshipGame() {
-    initializeBoard();
+BattleshipGame::BattleshipGame(int size) {
+    boardSize = size;
+    board.resize(boardSize, std::vector<char>(boardSize, EMPTY_CELL));
 }
 
 void BattleshipGame::initializeBoard() {
-    board.resize(BOARD_SIZE, std::vector<char>(BOARD_SIZE, EMPTY));
+    for (int i = 0; i < boardSize; i++) {
+        for (int j = 0; j < boardSize; j++) {
+            board[i][j] = EMPTY_CELL;
+        }
+    }
 }
 
 void BattleshipGame::printBoard() {
-    for (int row = 0; row < BOARD_SIZE; row++) {
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            std::cout << board[row][col] << " ";
+    for (int i = 0; i < boardSize; i++) {
+        for (int j = 0; j < boardSize; j++) {
+            std::cout << board[i][j] << " ";
         }
         std::cout << std::endl;
     }
 }
 
-bool BattleshipGame::isCoordinateValid(int row, int col) {
-    return row >= 0 && row < BOARD_SIZE && col >= 0 && col < BOARD_SIZE;
-}
-
-bool BattleshipGame::isShipPlacementValid(int row, int col, int length, bool isVertical) {
-    if (isVertical) {
-        if (row + length > BOARD_SIZE) {
-            return false;
-        }
-        for (int i = row; i < row + length; i++) {
-            if (board[i][col] != EMPTY) {
-                return false;
-            }
-        }
-    }
-    else {
-        if (col + length > BOARD_SIZE) {
-            return false;
-        }
-        for (int j = col; j < col + length; j++) {
-            if (board[row][j] != EMPTY) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-void BattleshipGame::placeShip(int row, int col, int length, bool isVertical) {
-    if (isVertical) {
-        for (int i = row; i < row + length; i++) {
-            board[i][col] = SHIP;
-        }
-    }
-    else {
-        for (int j = col; j < col + length; j++) {
-            board[row][j] = SHIP;
-        }
-    }
-}
-
 void BattleshipGame::placeShips() {
-    // Place ships on the board
-    placeShip(1, 2, 3, true);  // Vertical ship of length 3 starting from (1, 2)
-    placeShip(4, 6, 4, false); // Horizontal ship of length 4 starting from (4, 6)
-    placeShip(7, 3, 5, true);  // Vertical ship of length 5 starting from (7, 3)
-}
+    int shipCount = boardSize / 2; // Place half the board size number of ships
+    int shipSize = 2; // Set ship size to 2 for this example
 
-void BattleshipGame::fireShot(int row, int col) {
-    if (!isCoordinateValid(row, col)) {
-        std::cout << "Invalid coordinates!" << std::endl;
-        return;
-    }
+    for (int i = 0; i < shipCount; i++) {
+        int x, y;
+        std::cout << "Enter the starting coordinates for Ship " << i + 1 << " (Size: " << shipSize << "): ";
+        std::cin >> x >> y;
 
-    if (board[row][col] == EMPTY) {
-        std::cout << "Miss!" << std::endl;
-        board[row][col] = MISS;
-    }
-    else if (board[row][col] == SHIP) {
-        std::cout << "Hit!" << std::endl;
-        board[row][col] = HIT;
-    }
-    else if (board[row][col] == HIT || board[row][col] == MISS) {
-        std::cout << "Already shot at this position!" << std::endl;
-    }
-
-    // Check if all ships have been sunk
-    bool allShipsSunk = true;
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            if (board[i][j] == SHIP) {
-                allShipsSunk = false;
-                break;
+        if (x >= 0 && x < boardSize && y >= 0 && y < boardSize) {
+            // Place ship horizontally
+            if (x + shipSize <= boardSize) {
+                for (int j = 0; j < shipSize; j++) {
+                    board[x + j][y] = SHIP_CELL;
+                }
+            }
+            // Place ship vertically
+            else if (y + shipSize <= boardSize) {
+                for (int j = 0; j < shipSize; j++) {
+                    board[x][y + j] = SHIP_CELL;
+                }
+            }
+            else {
+                std::cout << "Invalid ship placement. Try again." << std::endl;
+                i--;
             }
         }
-        if (!allShipsSunk) {
-            break;
+        else {
+            std::cout << "Invalid coordinates. Try again." << std::endl;
+            i--;
         }
-    }
-
-    if (allShipsSunk) {
-        std::cout << "Congratulations! You sunk all the ships!" << std::endl;
     }
 }
 
 void BattleshipGame::play() {
-    std::cout << "Battleship Game" << std::endl;
-    std::cout << "===============" << std::endl;
-
+    std::cout << "=== BATTLESHIP GAME ===" << std::endl;
+    initializeBoard();
     placeShips();
+
+    std::cout << "Game Board:" << std::endl;
     printBoard();
+}
 
-    while (true) {
-        int row, col;
-        std::cout << "Enter row (0-" << BOARD_SIZE - 1 << "): ";
-        std::cin >> row;
-        std::cout << "Enter col (0-" << BOARD_SIZE - 1 << "): ";
-        std::cin >> col;
+int main() {
+    int boardSize;
+    std::cout << "Enter the board size: ";
+    std::cin >> boardSize;
 
-        fireShot(row, col);
-        printBoard();
+    BattleshipGame game(boardSize);
+    game.play();
 
-        // Check if all ships have been sunk
-        bool allShipsSunk = true;
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (board[i][j] == SHIP) {
-                    allShipsSunk = false;
-                    break;
-                }
-            }
-            if (!allShipsSunk) {
-                break;
-            }
-        }
-
-        if (allShipsSunk) {
-            std::cout << "Congratulations! You sunk all the ships!" << std::endl;
-            break;
-        }
-    }
-
-    std::cout << "Game Over." << std::endl;
+    return 0;
 }
