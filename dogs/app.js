@@ -2,12 +2,12 @@ const mysql = require('mysql2');
 const readline = require('readline');
 const { clearConsole } = require('console-clear');
 
-const con = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'Dumle2015',
-  database: 'MySQL80',
-  port: 3307,
+var con = mysql.createConnection({
+  host: "",
+  user: "",
+  password: "",
+  database: "",
+  port: ""
 });
 
 con.connect(function (err) {
