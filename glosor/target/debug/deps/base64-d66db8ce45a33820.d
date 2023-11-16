@@ -1,0 +1,11 @@
+C:\Users\erikf\Documents\tutorials\School-Work\glosor\target\debug\deps\libbase64-d66db8ce45a33820.rmeta: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\chunked_encoder.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\display.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\line_wrap.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\tables.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\encode.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\decode.rs
+
+C:\Users\erikf\Documents\tutorials\School-Work\glosor\target\debug\deps\base64-d66db8ce45a33820.d: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\chunked_encoder.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\display.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\line_wrap.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\tables.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\encode.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\decode.rs
+
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\lib.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\chunked_encoder.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\display.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\line_wrap.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\tables.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\encode.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\base64-0.9.3\src\decode.rs:
