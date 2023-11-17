@@ -1,7 +1,6 @@
-use sqlx::{Error, MySqlPool};
+use rusqlite::{Connection, Result};
 
-pub async fn connect() -> Result<MySqlPool, Error> {
-    dotenv::dotenv().ok();
-    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    MySqlPool::connect(&database_url).await
+pub fn connect() -> Result<Connection> {
+    let database_url = "sqlite:my_rust_app.db";
+    Connection::open(&database_url)
 }
