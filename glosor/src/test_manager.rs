@@ -1,24 +1,8 @@
 use rusqlite::{params, Connection, Result};
+use std::{fmt::format, simd::SimdConstPtr};
 
 pub fn create_test(conn: &Connection, name: &str, max_attempts: i32) -> Result<i64> {
-    conn.execute(
-        "INSERT INTO tests (name, max_attempts) VALUES (?, ?)",
-        params![name, max_attempts],
-    )?;
+    let test_table_name = format!("{}_questions", name.replace("", "_"));
 
-    Ok(conn.last_insert_rowid())
-}
-
-pub fn add_question_to_test(
-    conn: &Connection,
-    test_id: i64,
-    question_word: &str,
-    answer_word: &str,
-) -> Result<()> {
-    conn.execute(
-        "INSERT INTO questions (test_id, question_word, answer_word) VALUES (?, ?, ?)",
-        params![test_id, question_word, answer_word],
-    )?;
-
-    Ok(())
+    conn.execute(&format!("CREATE TABLE IF IF NOT EXISTS {} ( id INTEGER PRIMARY KEY, question_word TEXT NOT NULL, answer_word TEXT NOT NULL)", test_table_name), [], )?;
 }
