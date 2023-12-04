@@ -45,7 +45,7 @@ function Character:Chapter1()
         print("After about 30 minutes of walking you see light in the distants. Do you go towards the light [y: for yes, n: for no]\n")
         local choice = io.read()
         if choice == "y" then
-            print("You start walking towards the light when you get closer you see a bunch of people dancing around a fire while wearing white robs ")
+            print("You start walking towards the light when you get closer you see a bunch of people dancing around a fire while wearing white robs   ")
         end
 
     end
