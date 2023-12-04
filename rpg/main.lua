@@ -34,5 +34,22 @@ function Character:Start()
     self:view()
 end
 
+function Character:Chapter1()
+    print("You get dropped off in the middle of the forest by a van.\n")
+    print("You look down on your watch and you see that its midnight.\n")
+    print("You look around and you see that there is nothing but dark forest.\n")
+    print("You decied that you will walk down one of the paths you see. [1: for path one, 2: for path two, 3: for path three]\n")
+    local choice = io.read()
+    if choice == "1" then
+        print("You decieded to start walking down path one\n")
+        print("After about 30 minutes of walking you see light in the distants. Do you go towards the light [y: for yes, n: for no]\n")
+        local choice = io.read()
+        if choice == "y" then
+            print("You start walking towards the light when you get closer you see a bunch of people dancing around a fire while wearing white robs   ")
+        end
+
+    end
+end
+
 local myCharacter = Character.new()
 myCharacter:Start()
