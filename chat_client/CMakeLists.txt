@@ -3,6 +3,10 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
+include_directories(c:/sqlite)
+add_library(sqlite3 STATIC IMPORTED)
+set_target_properties(sqlite3 PROPERTIES IMPORTED_LOCATION c:/sqlite/sqlite3.lib)
+
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
