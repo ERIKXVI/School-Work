@@ -2,6 +2,7 @@
 #include <string>
 #include <thread>
 #include <chrono>
+#include <sqlite3.h>
 
 using namespace std;
 
@@ -30,7 +31,6 @@ int main()
 
 	cout << "Welcome " << username << " to sexy chat!" << endl;
 	cout << "--------------------------------------" << endl;
-	cin.ignore();
-	cin.get();
+
 	return 0;
 }
