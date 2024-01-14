@@ -11,8 +11,13 @@ endif()
 
 project ("Chat_Client")
 
-# Add source to this project's executable.
-add_executable (Chat_Client "Chat_Client.cpp" )
+include_directories(${CMAKE_SOURCE_DIR}/include)
+link_directories(${CMAKE_SOURCE_DIR}/lib64/vs14)
+link_directories(${CMAKE_SOURCE_DIR}/lib64)
+
+add_executable(Chat_Client Chat_Client.cpp)
+target_link_libraries(Chat_Client mysqlcppconn)
+
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Chat_Client PROPERTY CXX_STANDARD 20)

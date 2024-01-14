@@ -4,20 +4,20 @@
 #include "./include/jdbc/cppconn/exception.h"
 #include "./include/jdbc/cppconn/resultset.h"
 #include "./include/jdbc/cppconn/statement.h"
+#include "./include/jdbc/cppconn/prepared_statement.h"
+#include <memory>
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-sql::mysql::MySQL_Driver* driver;
-sql::Connection* con;
-
-void writeMessage(const string& message) {
-    unique_ptr<sql::Statement> stmt(con->createStatement());
-    stmt->execute("INSERT INTO Messages (Text) VALUES ('" + message + "')");
+void writeMessage(sql::Connection* con, const string& message) {
+    unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("INSERT INTO Messages (Text) VALUES (?)"));
+    pstmt->setString(1, message);
+    pstmt->executeUpdate();
 }
 
-void readMessages() {
+void readMessages(sql::Connection* con) {
     unique_ptr<sql::Statement> stmt(con->createStatement());
     unique_ptr<sql::ResultSet> res(stmt->executeQuery("SELECT Text FROM Messages"));
 
@@ -27,33 +27,57 @@ void readMessages() {
 }
 
 int main() {
-    try {
-        driver = sql::mysql::get_mysql_driver_instance();
-        con = driver->connect("tcp://<Cloud_SQL_Instance_IP>:3306", "<username>", "<password>");
-        con->setSchema("<database_name>");
+    sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
+    sql::Connection* con = nullptr;
+
+    try
+    {
+        sql::ConnectOptionsMap connection_properties;
+        connection_properties["hostName"] = "tcp://34.88.69.48:3306";
+        connection_properties["userName"] = "chatclient";
+        connection_properties["password"] = "Dumle2015";
+        connection_properties["CLIENT_SSL_KEY"] = "/client-key.pem";
+        connection_properties["CLIENT_SSL_CERT"] = "/client-cert.pem";
+        connection_properties["CLIENT_SSL_CA"] = "/server-ca.pem";
+        con = driver->connect(connection_properties);
+
     }
     catch (sql::SQLException& e) {
-        cerr << "Failed to connect to the database. Error: " << e.what() << endl;
-        return 1; // Return an error code
+        std::cerr << "# ERR: SQLException in " << __FILE__;
+        std::cerr << "(" << __FUNCTION__ << ") on line " << __LINE__ << std::endl;
+        std::cerr << "# ERR: " << e.what();
+        std::cerr << " (MySQL error code: " << e.getErrorCode();
+        std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
     }
 
-    // Chat loop
-    while (true) {
-        // Display all messages
-        readMessages();
+    try {
+        // Chat loop
+        while (true) {
+            // Display all messages
+            if (con != nullptr) {
+                readMessages(con);
+            }
 
-        // Get user input
-        cout << "Enter a message (or 'quit' to quit): ";
-        string message;
-        getline(cin, message);
+            // Get user input
+            cout << "Enter a message (or 'quit' to quit): ";
+            string message;
+            getline(cin, message);
 
-        // Quit if the user entered 'quit'
-        if (message == "quit") {
-            break;
+            // Quit if the user entered 'quit'
+            if (message == "quit") {
+                break;
+            }
+
+            // Write the message to the database
+            if (con != nullptr) {
+                writeMessage(con, message);
+            }
         }
-
-        // Write the message to the database
-        writeMessage(message);
+    }
+    catch (sql::SQLException& e) {
+        std::cerr << "SQLException: " << e.what();
+        std::cerr << " (MySQL error code: " << e.getErrorCode();
+        std::cerr << ", SQLState: " << e.getSQLState() << ")\n";
     }
 
     delete con;
