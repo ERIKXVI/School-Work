@@ -56,13 +56,6 @@ build CMakeFiles\Chat_Client.dir\Chat_Client.cpp.obj: CXX_COMPILER__Chat_Client_
   TARGET_COMPILE_PDB = CMakeFiles\Chat_Client.dir\
   TARGET_PDB = Chat_Client.pdb
 
-build CMakeFiles\Chat_Client.dir\mysql.cpp.obj: CXX_COMPILER__Chat_Client_unscanned_Debug C$:\Users\erikf\Documents\GitHub\School-Work\chat_client\mysql.cpp || cmake_object_order_depends_target_Chat_Client
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
-  OBJECT_DIR = CMakeFiles\Chat_Client.dir
-  OBJECT_FILE_DIR = CMakeFiles\Chat_Client.dir
-  TARGET_COMPILE_PDB = CMakeFiles\Chat_Client.dir\
-  TARGET_PDB = Chat_Client.pdb
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Chat_Client
@@ -71,7 +64,7 @@ build CMakeFiles\Chat_Client.dir\mysql.cpp.obj: CXX_COMPILER__Chat_Client_unscan
 #############################################
 # Link the executable Chat_Client.exe
 
-build Chat_Client.exe: CXX_EXECUTABLE_LINKER__Chat_Client_Debug CMakeFiles\Chat_Client.dir\Chat_Client.cpp.obj CMakeFiles\Chat_Client.dir\mysql.cpp.obj
+build Chat_Client.exe: CXX_EXECUTABLE_LINKER__Chat_Client_Debug CMakeFiles\Chat_Client.dir\Chat_Client.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

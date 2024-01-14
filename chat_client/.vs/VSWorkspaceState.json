@@ -12,8 +12,9 @@
     ]
   },
   "ExpandedNodes": [
-    ""
+    "",
+    "\\out"
   ],
-  "SelectedNode": "\\Chat_Client.cpp",
+  "SelectedNode": "\\out",
   "PreviewInSolutionExplorer": false
 }

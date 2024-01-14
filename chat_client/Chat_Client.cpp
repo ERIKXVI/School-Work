@@ -1,33 +1,61 @@
-﻿#include <iostream>
+﻿#include "./include/jdbc/mysql_driver.h"
+#include "./include/jdbc/mysql_connection.h"
+#include "./include/jdbc/cppconn/driver.h"
+#include "./include/jdbc/cppconn/exception.h"
+#include "./include/jdbc/cppconn/resultset.h"
+#include "./include/jdbc/cppconn/statement.h"
+#include <iostream>
 #include <string>
-#include <thread>
-#include <chrono>
 
 using namespace std;
 
-int main()
-{
-	cout << "Hello and welcome to sexy chat!" << endl;
-	cout << "-----------------------------" << endl;
-	cout << "Please enter your Username: ";
-	string username;
-	cin >> username;
+sql::mysql::MySQL_Driver* driver;
+sql::Connection* con;
 
-	cout << "Welcome " << username << " to sexy chat!" << endl;
-	cout << "--------------------------------------" << endl;
-	cout << "Please press 1 to connect to the chat server: ";
-	int database;
-	cin >> database;
+void writeMessage(const string& message) {
+    unique_ptr<sql::Statement> stmt(con->createStatement());
+    stmt->execute("INSERT INTO Messages (Text) VALUES ('" + message + "')");
+}
 
-	switch (database)
-	{
-	case 1:
+void readMessages() {
+    unique_ptr<sql::Statement> stmt(con->createStatement());
+    unique_ptr<sql::ResultSet> res(stmt->executeQuery("SELECT Text FROM Messages"));
 
-			break;
-	default:
-		cout << "Invalid Selection!" << endl;
-		break;
-	}
+    while (res->next()) {
+        cout << res->getString("Text") << endl;
+    }
+}
 
-	return 0;
+int main() {
+    try {
+        driver = sql::mysql::get_mysql_driver_instance();
+        con = driver->connect("tcp://<Cloud_SQL_Instance_IP>:3306", "<username>", "<password>");
+        con->setSchema("<database_name>");
+    }
+    catch (sql::SQLException& e) {
+        cerr << "Failed to connect to the database. Error: " << e.what() << endl;
+        return 1; // Return an error code
+    }
+
+    // Chat loop
+    while (true) {
+        // Display all messages
+        readMessages();
+
+        // Get user input
+        cout << "Enter a message (or 'quit' to quit): ";
+        string message;
+        getline(cin, message);
+
+        // Quit if the user entered 'quit'
+        if (message == "quit") {
+            break;
+        }
+
+        // Write the message to the database
+        writeMessage(message);
+    }
+
+    delete con;
+    return 0;
 }

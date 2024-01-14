@@ -12,7 +12,7 @@ endif()
 project ("Chat_Client")
 
 # Add source to this project's executable.
-add_executable (Chat_Client "Chat_Client.cpp" "mysql.cpp")
+add_executable (Chat_Client "Chat_Client.cpp" )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Chat_Client PROPERTY CXX_STANDARD 20)
