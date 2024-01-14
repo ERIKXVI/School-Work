@@ -3,10 +3,6 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-include_directories(c:/sqlite)
-add_library(sqlite3 STATIC IMPORTED)
-set_target_properties(sqlite3 PROPERTIES IMPORTED_LOCATION c:/sqlite/sqlite3.lib)
-
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
   cmake_policy(SET CMP0141 NEW)
@@ -16,7 +12,7 @@ endif()
 project ("Chat_Client")
 
 # Add source to this project's executable.
-add_executable (Chat_Client "Chat_Client.cpp")
+add_executable (Chat_Client "Chat_Client.cpp" "mysql.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET Chat_Client PROPERTY CXX_STANDARD 20)

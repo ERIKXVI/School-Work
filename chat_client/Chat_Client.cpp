@@ -2,22 +2,8 @@
 #include <string>
 #include <thread>
 #include <chrono>
-#include <sqlite3.h>
 
 using namespace std;
-
-void showLoadingScreen()
-{
-	cout << "Loading..." << endl;
-	cout << "[";
-	for (int i = 0; i <= 10; i++)
-	{
-		cout << "=";
-		cout.flush();
-		this_thread::sleep_for(chrono::seconds(1));
-	}
-	cout << "]" << endl;
-}
 
 int main()
 {
@@ -27,10 +13,21 @@ int main()
 	string username;
 	cin >> username;
 
-	showLoadingScreen();
-
 	cout << "Welcome " << username << " to sexy chat!" << endl;
 	cout << "--------------------------------------" << endl;
+	cout << "Please press 1 to connect to the chat server: ";
+	int database;
+	cin >> database;
+
+	switch (database)
+	{
+	case 1:
+
+			break;
+	default:
+		cout << "Invalid Selection!" << endl;
+		break;
+	}
 
 	return 0;
 }

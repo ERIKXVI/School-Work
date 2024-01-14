@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/erikf/Documents/GitHub/School programing/School-Work/Chat_Client
+# Install script for directory: C:/Users/erikf/Documents/GitHub/School-Work/chat_client
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Users/erikf/Documents/GitHub/School programing/School-Work/Chat_Client/out/install/x64-debug")
+  set(CMAKE_INSTALL_PREFIX "C:/Users/erikf/Documents/GitHub/School-Work/chat_client/out/install/x64-debug")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/erikf/Documents/GitHub/School programing/School-Work/Chat_Client/out/build/x64-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/erikf/Documents/GitHub/School-Work/chat_client/out/build/x64-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
