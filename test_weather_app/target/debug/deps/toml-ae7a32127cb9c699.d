@@ -1,0 +1,13 @@
+C:\Users\erikf\Documents\GitHub\School-Work\test_weather_app\target\debug\deps\libtoml-ae7a32127cb9c699.rmeta: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\map.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\value.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\de.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\ser.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\macros.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\edit.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\fmt.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\table.rs
+
+C:\Users\erikf\Documents\GitHub\School-Work\test_weather_app\target\debug\deps\toml-ae7a32127cb9c699.d: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\map.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\value.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\de.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\ser.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\macros.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\edit.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\fmt.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\table.rs
+
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\lib.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\map.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\value.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\de.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\ser.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\macros.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\edit.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\fmt.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\toml-0.8.10\src\table.rs:
