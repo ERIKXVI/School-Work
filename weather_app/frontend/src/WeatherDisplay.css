@@ -1,0 +1,15 @@
+.weather-card {
+    width: 350px;
+    margin: 40px auto;
+    /* Centers the card horizontally */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.details {
+    display: flex;
+    justify-content: space-around;
+}
