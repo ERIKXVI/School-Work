@@ -1,7 +1,6 @@
 .weather-card {
     width: 350px;
     margin: 40px auto;
-    /* Centers the card horizontally */
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchBar from './SearchBar';
-import WeatherDisplay from './WeatherDisplay'; // Create this component
+import WeatherDisplay from './WeatherDisplay';
 
 function App() {
     const [weatherData, setWeatherData] = useState(null);
@@ -15,13 +15,10 @@ function App() {
        } catch (error) {
            setWeatherData(null);
            if (error.response) {
-               // Request made, server responded with error
                setError(`Error: ${error.response.status} - ${error.response.statusText}`); 
            } else if (error.request) {
-               // Request made, but no response received
-               setError("Error: No response from server. Is it running?"); 
+                setError("Error: No response from server. Is it running?"); 
            } else {
-               // General network error
                setError("Error: Network Error"); 
            }
        }

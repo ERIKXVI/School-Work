@@ -7,7 +7,6 @@ const port = process.env.PORT || 3001;
 
 const API_KEY = process.env.OPENWEATHERMAP_API_KEY;
 
-// Enable CORS 
 const cors = require('cors');
 app.use(cors());
 
@@ -18,7 +17,7 @@ app.get('/weather', async (req, res) => {
         const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`);
         res.json(response.data);
     } catch (error) {
-        console.error("Error fetching weather:", error); // Log the error to your console 
+        console.error("Error fetching weather:", error);
         res.status(500).json({ error: 'Error fetching weather data' });
     }
 });
