@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
-const http = require('http'); // We need this for creating the server
+const http = require('http');
 const socketIO = require('socket.io');
 
 const app = express();
