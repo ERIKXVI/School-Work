@@ -6,9 +6,22 @@
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
+    background-color: #fff; /* White background for contrast */
 }
 
-.details {
-    display: flex;
-    justify-content: space-around;
+.weather-card h2 {
+    margin-bottom: 10px;
+}
+
+.details,
+.additional-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Style individual data items if desired */
+.details p {
+    margin: 5px 0;
 }

@@ -1,0 +1,9 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Or justify-content: flex-start; to top align*/
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif; /* Example font choice */
+    background-color: #f0f0f5; /* A subtle background color */
+}
