@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
-const API_KEY = process.env.OPENWEATHERMAP_API_KEY;
+const API_KEY = "2810836faf49690ed553cbc7174ce79a";
 const cors = require('cors');
 
 app.use(cors());
