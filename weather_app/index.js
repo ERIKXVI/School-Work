@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
-const API_KEY = "2810836faf49690ed553cbc7174ce79a";
+const API_KEY = process.env.API_KEY;
 const cors = require('cors');
 
 app.use(cors());
@@ -13,7 +13,7 @@ app.get('/weather', async (req, res) => {
     const city = req.query.city;
 
     try {
-        // Fetch lat/lon coordinates
+        // Fetch lat/lon coordinates using Geocoding API
         const geocodingResponse = await axios.get(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`);
         const lat = geocodingResponse.data[0].lat;
         const lon = geocodingResponse.data[0].lon;
@@ -30,7 +30,9 @@ app.get('/weather', async (req, res) => {
         res.json({
             current: currentWeatherResponse.data,
             hourly: hourlyForecast,
-            daily: dailyForecast
+            daily: dailyForecast,
+            windSpeed: currentWeatherResponse.data.wind.speed,
+            humidity: currentWeatherResponse.data.main.humidity
         });
 
     } catch (error) {
@@ -39,7 +41,6 @@ app.get('/weather', async (req, res) => {
     }
 });
 
-// Helper function to format daily forecast
 function processDailyForecast(dailyData) {
     return dailyData.map((day) => {
         return {

@@ -4,4 +4,4 @@ C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\build\proc-macro2-4
 
 build\probe.rs:
 
-# env-dep:RUSTC_BOOTSTRAP
+# env-dep:RUSTC_BOOTSTRAP=1
