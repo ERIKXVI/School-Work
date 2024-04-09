@@ -4,4 +4,4 @@ C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\build\thiserror-c0c
 
 build\probe.rs:
 
-# env-dep:RUSTC_BOOTSTRAP=1
+# env-dep:RUSTC_BOOTSTRAP

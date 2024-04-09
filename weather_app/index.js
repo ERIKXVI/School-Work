@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
-const API_KEY = process.env.API_KEY;
+const API_KEY = "58b4bbeb26686ad889bb4faf512f798d";
 const cors = require('cors');
 
 app.use(cors());

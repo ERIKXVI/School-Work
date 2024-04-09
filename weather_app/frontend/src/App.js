@@ -23,7 +23,7 @@ function App() {
             <h1>Weather App</h1>
             <SearchBar onSearch={handleSearch} />
             {error && <p>Error: {error}</p>}
-            {weatherData && <WeatherDisplay data={weatherData} />}
+            {weatherData && <WeatherDisplay data={weatherData}/>}
         </div>
     );
 }

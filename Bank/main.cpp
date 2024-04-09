@@ -1,4 +1,71 @@
 #include <iostream>
+#include <GLFW/glfw3.h>
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+
+int main() {
+	// Initialize GLFW
+	glfwInit();
+
+	// Create a window (frameless)
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); // Make window frameless
+	GLFWwindow* window = glfwCreateWindow(800, 600, "My Window", nullptr, nullptr);
+	glfwMakeContextCurrent(window);
+	glfwShowWindow(window);
+
+	int windowWidth, windowHeight;
+	glfwGetWindowSize(window, &windowWidth, &windowHeight);
+	std::cout << "Window Size: (" << windowWidth << ", " << windowHeight << ")" << std::endl;
+
+	// Setup ImGui context and bindings
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
+
+	// Optional: Set ImGui style
+	ImGui::StyleColorsDark();
+
+	while (!glfwWindowShouldClose(window)) {
+		// Handle GLFW events
+		glfwPollEvents();
+
+		// Start a new ImGui frame
+		ImGui::NewFrame();
+		ImGui::SetNextWindowSize(ImVec2(400, 400));
+		// Your ImGui UI code here
+		ImGui::Begin("My Window");
+		ImGui::Text("Hello, ImGui!");
+		ImGui::End();
+
+		// Clear screen (adjust color or use transparency if desired)
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		// Render ImGui
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		// Swap buffers
+		glfwSwapBuffers(window);
+	}
+
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+	glfwDestroyWindow(window);
+	glfwTerminate();
+
+	return 0;
+}
+
+/*#include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
@@ -199,4 +266,4 @@ int main()
 	logOutput.close();
 
 	return 0;
-}
+}*/
