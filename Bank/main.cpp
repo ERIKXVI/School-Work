@@ -1,71 +1,4 @@
 #include <iostream>
-#include <GLFW/glfw3.h>
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
-
-int main() {
-	// Initialize GLFW
-	glfwInit();
-
-	// Create a window (frameless)
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_DECORATED, GLFW_FALSE); // Make window frameless
-	GLFWwindow* window = glfwCreateWindow(800, 600, "My Window", nullptr, nullptr);
-	glfwMakeContextCurrent(window);
-	glfwShowWindow(window);
-
-	int windowWidth, windowHeight;
-	glfwGetWindowSize(window, &windowWidth, &windowHeight);
-	std::cout << "Window Size: (" << windowWidth << ", " << windowHeight << ")" << std::endl;
-
-	// Setup ImGui context and bindings
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
-
-	// Optional: Set ImGui style
-	ImGui::StyleColorsDark();
-
-	while (!glfwWindowShouldClose(window)) {
-		// Handle GLFW events
-		glfwPollEvents();
-
-		// Start a new ImGui frame
-		ImGui::NewFrame();
-		ImGui::SetNextWindowSize(ImVec2(400, 400));
-		// Your ImGui UI code here
-		ImGui::Begin("My Window");
-		ImGui::Text("Hello, ImGui!");
-		ImGui::End();
-
-		// Clear screen (adjust color or use transparency if desired)
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		// Render ImGui
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		// Swap buffers
-		glfwSwapBuffers(window);
-	}
-
-	// Cleanup
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
-	glfwDestroyWindow(window);
-	glfwTerminate();
-
-	return 0;
-}
-
-/*#include <iostream>
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
@@ -83,7 +16,8 @@ struct account
 };
 
 // generate a random 4 digit number
-int generateID() {
+int generateID()
+{
 	srand(time(NULL));
 	int id = rand() % 10000 + 1000;
 	return id;
@@ -94,7 +28,7 @@ bool checkPin(string enteredPin, string storedPin)
 	return enteredPin == storedPin;
 }
 
-void createAccount(vector<account>& accounts)
+void createAccount(vector<account> &accounts)
 {
 	account newaccount;
 	newaccount.id = generateID();
@@ -108,7 +42,7 @@ void createAccount(vector<account>& accounts)
 	accounts.push_back(newaccount);
 };
 
-int login(vector<account>& accounts)
+int login(vector<account> &accounts)
 {
 	int accountid;
 	string pin;
@@ -131,7 +65,7 @@ int login(vector<account>& accounts)
 	return -1;
 }
 
-void deposit(account& account)
+void deposit(account &account)
 {
 	double amount;
 	cout << "Enter the amount you want to deposit: ";
@@ -140,7 +74,7 @@ void deposit(account& account)
 	cout << "Deposit successful. Your new balance is: " << account.balance << endl;
 }
 
-void withdraw(account& acc)
+void withdraw(account &acc)
 {
 	double amount;
 	cout << "Enter the amount you want to withdraw: ";
@@ -149,20 +83,21 @@ void withdraw(account& acc)
 	{
 		cout << "Insufficient funds. Please try again." << endl;
 	}
-	else {
+	else
+	{
 		acc.balance -= amount;
 		cout << "Withdrawal successful. Your new balance is: " << acc.balance << endl;
 	}
 }
 
-void deleteAccount(vector<account>& accounts, int index)
+void deleteAccount(vector<account> &accounts, int index)
 {
 	cout << "Are you sure you want to delete your account? (y/n)" << endl;
 	char choice;
 	cin >> choice;
 	if (choice == 'y')
 	{
-	accounts.erase(accounts.begin() + index);
+		accounts.erase(accounts.begin() + index);
 		cout << "Account deleted." << endl;
 	}
 	else
@@ -191,26 +126,31 @@ void displayAccountMenu()
 
 int main()
 {
-	system ("cls");
+	system("cls");
 	vector<account> accounts;
 	ifstream accountfile("accounts.txt");
 	ifstream logfile("log.txt");
 
 	int choice;
-	do {
+	do
+	{
 		displayMenu();
 		cin >> choice;
 		switch (choice)
 		{
-		case 1: {
+		case 1:
+		{
 			int index = login(accounts);
-			if (index != -1) {
+			if (index != -1)
+			{
 				int choice;
-				do {
+				do
+				{
 					system("cls");
 					displayAccountMenu();
 					cin >> choice;
-					switch (choice) {
+					switch (choice)
+					{
 					case 1:
 						deposit(accounts[index]);
 						break;
@@ -231,11 +171,11 @@ int main()
 			break;
 		}
 
-		case 2: 
+		case 2:
 			createAccount(accounts);
 			break;
 
-		case 3: 
+		case 3:
 		{
 			int index = login(accounts);
 			if (index != -1)
@@ -245,7 +185,7 @@ int main()
 			break;
 		}
 
-		case 4: 
+		case 4:
 			cout << "Goodbye!" << endl;
 			break;
 		default:
@@ -253,7 +193,7 @@ int main()
 			break;
 		}
 	} while (choice != 4);
-	
+
 	ofstream accountOutput("accounts.txt");
 	for (int i = 0; i < accounts.size(); i++)
 	{
@@ -266,4 +206,4 @@ int main()
 	logOutput.close();
 
 	return 0;
-}*/
+}
