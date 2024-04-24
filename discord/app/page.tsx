@@ -1,9 +1,9 @@
-import { Button } from "flowbite-react";
+"use client";
 
 export default function Home() {
   return (
     <div>
-      <Button>Test</Button>
+
     </div>
   );
 }
