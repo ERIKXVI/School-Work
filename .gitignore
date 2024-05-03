@@ -12,3 +12,5 @@ växlare/.vs/växlare/v17/.suo
 *.tlog
 *.tlog
 *.tlog
+bank/target/
+bank/target/debug
