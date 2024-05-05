@@ -3,7 +3,9 @@ name = "bank"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-iced = "0.12.1"
+egui = "0.15"
+eframe = "0.15"
+serde = { version = "1.0", features = ["derive"] }
+bincode = "1.3"
+rand = "0.8.4"
