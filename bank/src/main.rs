@@ -1,5 +1,6 @@
 use eframe::{egui, epi};
 use rand::Rng;
+use rusqlite::{params, Connection, Result};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Serialize, Deserialize)]
@@ -23,14 +24,29 @@ struct MyApp {
     logged_in_account: Option<Account>,
 }
 
+fn create_db() -> Result<()> {
+    let conn = Connection::open("accounts.db")?;
+
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS accounts (
+                  id              INTEGER PRIMARY KEY,
+                  name            TEXT NOT NULL,
+                  pin             TEXT NOT NULL,
+                  balance         REAL NOT NULL
+                  )",
+        params![],
+    )?;
+    Ok(())
+}
+
 impl MyApp {
     fn create_account(&mut self) {
         let account = Account {
-            id: self.generate_account_id(),
-            name: self.account_name.clone(),
-            holder: self.holder.clone(),
-            pin: self.pin.clone(),
-            balance: self.balance,
+            id: self.generate_account_id(),  // Generate a new account ID
+            name: self.account_name.clone(), // Use the account name inputted by the user
+            holder: self.holder.clone(),     // Use the holder name inputted by the user
+            pin: self.pin.clone(),           // Use the pin inputted by the user
+            balance: self.balance,           // Use the starting balance inputted by the user
         };
         self.accounts.push(account);
         self.save_accounts().unwrap();
@@ -48,19 +64,41 @@ impl MyApp {
         rng.gen_range(1000..9999)
     }
 
-    fn save_accounts(&self) -> std::result::Result<(), std::io::Error> {
-        let encoded = bincode::serialize(&self.accounts)
-            .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
-        std::fs::write("accounts.txt", encoded)?;
+    fn save_accounts(&self) -> Result<()> {
+        let conn = Connection::open("accounts.db")?;
+
+        for account in &self.accounts {
+            conn.execute(
+                "INSERT INTO accounts (id, name, pin, balance) values (?1, ?2, ?3, ?4)",
+                params![
+                    account.id,
+                    account.name,
+                    account.pin,
+                    account.balance as f64
+                ],
+            )?;
+        }
+
         Ok(())
     }
 
-    fn load_accounts(&mut self) -> std::result::Result<(), std::io::Error> {
-        if std::path::Path::new("accounts.txt").exists() {
-            let data = std::fs::read("accounts.txt")?;
-            self.accounts = bincode::deserialize(&data)
-                .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e))?;
+    fn load_accounts(&mut self) -> Result<()> {
+        let conn = Connection::open("accounts.db")?;
+
+        let mut stmt = conn.prepare("SELECT id, name, pin, balance FROM accounts")?;
+        let account_iter = stmt.query_map(params![], |row| {
+            Ok(Account {
+                id: row.get(0)?,
+                name: row.get(1)?,
+                pin: row.get(2)?,
+                balance: row.get::<_, f64>(3)? as f32,
+            })
+        })?;
+
+        for account in account_iter {
+            self.accounts.push(account?);
         }
+
         Ok(())
     }
 
@@ -72,10 +110,10 @@ impl MyApp {
         {
             Some(account) => {
                 self.logged_in_account = Some(account.clone());
-                self.show_login = false; // Hide login page
-                self.show_create_account = false; // Hide create account page if it's there
-                                                  // Hide any other pages here...
-                self.show_account_details = true; // Show account details page
+                self.show_login = false;
+                self.show_create_account = false;
+
+                self.show_account_details = true;
                 true
             }
             None => false,
