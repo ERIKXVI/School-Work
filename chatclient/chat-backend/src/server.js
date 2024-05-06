@@ -14,7 +14,7 @@ const io = socketIO(server, {
 });
 
 // Basic Middleware
-app.use(cors({origin: true})); // Apply CORS globally for HTTP routes
+app.use(cors({ origin: false })); // Apply CORS globally for HTTP routes
 app.use(express.json());
 
 // Connect to SQLite
