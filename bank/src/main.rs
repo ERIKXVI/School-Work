@@ -1,6 +1,6 @@
 use eframe::{egui, epi};
+use mysql::{from_row, Error, Pool};
 use rand::Rng;
-use rusqlite::{params, Connection, Result};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Serialize, Deserialize)]
@@ -24,18 +24,20 @@ struct MyApp {
     logged_in_account: Option<Account>,
 }
 
-fn create_db() -> Result<()> {
-    let conn = Connection::open("accounts.db")?;
+fn create_db() -> Result<(), mysql::Error> {
+    let pool = mysql::Pool::new("mysql://root:1234@localhost/bank")?;
 
-    conn.execute(
+    pool.prep_exec(
         "CREATE TABLE IF NOT EXISTS accounts (
                   id              INTEGER PRIMARY KEY,
                   name            TEXT NOT NULL,
+                  holder          TEXT NOT NULL,
                   pin             TEXT NOT NULL,
                   balance         REAL NOT NULL
                   )",
-        params![],
+        (),
     )?;
+
     Ok(())
 }
 
@@ -63,40 +65,43 @@ impl MyApp {
         rng.gen_range(1000..9999)
     }
 
-    fn save_accounts(&self) -> Result<()> {
-        let conn = Connection::open("accounts.db")?;
+    fn save_accounts(&self) -> Result<(), mysql::Error> {
+        let pool = mysql::Pool::new("mysql://root:1234@localhost/bank")?;
 
         for account in &self.accounts {
-            conn.execute(
-                "INSERT INTO accounts (id, name, pin, balance) values (?1, ?2, ?3, ?4)",
-                params![
-                    account.id,
-                    account.name,
-                    account.pin,
-                    account.balance as f64
-                ],
+            pool.prep_exec(
+                "INSERT INTO accounts (id, name, holder, pin, balance) values (?, ?, ?, ?, ?)",
+                (
+                    &account.id,
+                    &account.name,
+                    &account.holder,
+                    &account.pin,
+                    account.balance as f64,
+                ),
             )?;
         }
 
         Ok(())
     }
 
-    fn load_accounts(&mut self) -> Result<()> {
-        let conn = Connection::open("accounts.db")?;
+    fn load_accounts(&mut self) -> Result<(), mysql::Error> {
+        let pool = mysql::Pool::new("mysql://root:1234@localhost/bank")?;
 
-        let mut stmt = conn.prepare("SELECT id, name, pin, balance FROM accounts")?;
-        let account_iter = stmt.query_map(params![], |row| {
-            Ok(Account {
-                id: row.get(0)?,
-                name: row.get(1)?,
-                pin: row.get(2)?,
-                balance: row.get::<_, f64>(3)? as f32,
-            })
-        })?;
+        let mut accounts = Vec::new();
 
-        for account in account_iter {
-            self.accounts.push(account?);
+        for result in pool.prep_exec("SELECT id, name, pin, balance FROM accounts", ())? {
+            let row = result?;
+            let (id, name, pin, balance): (u32, String, String, f32) = mysql::from_row(row);
+            accounts.push(Account {
+                id,
+                name,
+                holder: String::new(), // Add the missing holder field
+                pin,
+                balance: balance as f32,
+            });
         }
+
+        self.accounts = accounts;
 
         Ok(())
     }
@@ -228,6 +233,11 @@ impl epi::App for MyApp {
 }
 
 fn main() {
+    match create_db() {
+        Ok(_) => println!("Database created successfully"),
+        Err(err) => println!("Error creating database: {}", err),
+    }
+
     let mut app = MyApp {
         account_name: String::new(),
         holder: String::new(),
