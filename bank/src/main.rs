@@ -42,16 +42,15 @@ fn create_db() -> Result<()> {
 impl MyApp {
     fn create_account(&mut self) {
         let account = Account {
-            id: self.generate_account_id(),  // Generate a new account ID
-            name: self.account_name.clone(), // Use the account name inputted by the user
-            holder: self.holder.clone(),     // Use the holder name inputted by the user
-            pin: self.pin.clone(),           // Use the pin inputted by the user
-            balance: self.balance,           // Use the starting balance inputted by the user
+            id: self.generate_account_id(),
+            name: self.account_name.clone(),
+            holder: self.holder.clone(),
+            pin: self.pin.clone(),
+            balance: self.balance,
         };
         self.accounts.push(account);
         self.save_accounts().unwrap();
 
-        // Reset the form and return to the main page
         self.account_name = String::new();
         self.holder = String::new();
         self.pin = String::new();

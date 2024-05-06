@@ -4,39 +4,38 @@ import Message from './Message';
 
 const socket = io('http://localhost:3001');
 
-function ChatBox() {
+function ChatBox({ username }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState('');
-    const [username, setUsername] = useState('Anonymous'); // Placeholder
 
     useEffect(() => {
         fetch('http://localhost:3001/messages') // Get history on load
             .then(res => res.json())
             .then(setMessages);
 
-        socket.on('message', (message) => {
-            console.log("Frontend received message:", message);
-            setMessages([...messages, message]);
-        });
+socket.on('message', (message) => {
+    console.log("Received message:", message);
+    setMessages((messages) => [...messages, message]);
+});
+
+        // Clean up the effect
+        return () => socket.off('message');
     }, []);
 
-    const sendMessage = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Sending message with username:", username);
-        socket.emit('message', { sender: username, message: newMessage }); // Correct object structure
+        socket.emit('message', { sender: username, message: newMessage });
         setNewMessage('');
     };
 
     return (
-        <div className="chat-container">
-            <div className="message-list">
-                {messages.map((message, index) => (
-                    <Message key={index} message={message} />
-                ))}
-            </div>
-            <form onSubmit={sendMessage}>
+        <div>
+            {messages.map((message, index) => (
+                <Message key={index} message={message} />
+            ))}
+            <form id="chat-form" onSubmit={handleSubmit}>
                 <input
-                    type="text"
+                    id="message-input"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
                 />
