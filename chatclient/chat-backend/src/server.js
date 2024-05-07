@@ -8,13 +8,13 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server, {
     cors: {
-        origin: 'http://localhost:3000', // Replace with your frontend origin
+        origin: 'http://192.168.136.1:3000', // Replace with your frontend origin
         methods: ["GET", "POST"]
     }
 });
 
 // Basic Middleware
-app.use(cors({ origin: false })); // Apply CORS globally for HTTP routes
+app.use(cors({ origin: 'http://192.168.136.1:3000' })); // Apply CORS globally for HTTP routes
 app.use(express.json());
 
 // Connect to SQLite

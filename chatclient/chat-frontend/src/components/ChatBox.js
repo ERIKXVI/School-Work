@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Message from './Message';
 
-const socket = io('http://localhost:3001');
+const socket = io('http://192.168.136.1:3001');
 
 function ChatBox({ username }) {
     const [messages, setMessages] = useState([]);

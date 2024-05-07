@@ -1,0 +1,9 @@
+C:\Users\erikf\Documents\GitHub\School-Work\discordclone\server\target\debug\deps\libtokio_tungstenite-b0f8c9459c0534f0.rmeta: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\compat.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\connect.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\handshake.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\stream.rs
+
+C:\Users\erikf\Documents\GitHub\School-Work\discordclone\server\target\debug\deps\tokio_tungstenite-b0f8c9459c0534f0.d: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\compat.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\connect.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\handshake.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\stream.rs
+
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\lib.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\compat.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\connect.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\handshake.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\tokio-tungstenite-0.15.0\src\stream.rs:
