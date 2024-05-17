@@ -1,3 +1,4 @@
+use bsod::bsod;
 use eframe::{egui, epi};
 use mysql::{from_row, Error, Pool};
 use rand::Rng;
@@ -25,7 +26,7 @@ struct MyApp {
 }
 
 fn create_db() -> Result<(), mysql::Error> {
-    let pool = mysql::Pool::new("mysql://root:1234@localhost/bank")?;
+    let pool = mysql::Pool::new("mysql://root:1234@10.0.126.159:3306/bank")?;
 
     pool.prep_exec(
         "CREATE TABLE IF NOT EXISTS accounts (
@@ -66,7 +67,7 @@ impl MyApp {
     }
 
     fn save_accounts(&self) -> Result<(), mysql::Error> {
-        let pool = mysql::Pool::new("mysql://root:1234@localhost/bank")?;
+        let pool = mysql::Pool::new("mysql://root:1234@10.0.126.159:3306/bank")?;
 
         for account in &self.accounts {
             pool.prep_exec(
@@ -85,7 +86,7 @@ impl MyApp {
     }
 
     fn load_accounts(&mut self) -> Result<(), mysql::Error> {
-        let pool = mysql::Pool::new("mysql://root:1234@localhost/bank")?;
+        let pool = mysql::Pool::new("mysql://root:1234@10.0.126.159:3306/bank")?;
 
         let mut accounts = Vec::new();
 
@@ -146,12 +147,13 @@ impl MyApp {
 
 impl epi::App for MyApp {
     fn name(&self) -> &str {
-        "My App"
+        "Bank"
     }
 
     fn update(&mut self, ctx: &egui::CtxRef, _frame: &mut epi::Frame<'_>) {
         if self.show_account_details {
             if let Some(account) = &self.logged_in_account {
+                let mut logout_clicked = false;
                 egui::CentralPanel::default().show(ctx, |ui| {
                     ui.label(format!("Account ID: {}", account.id));
                     ui.label(format!("Account Holder: {}", account.holder));
@@ -165,7 +167,13 @@ impl epi::App for MyApp {
                     if ui.button("Transfer").clicked() {
                         // Implement transfer functionality here
                     }
+                    if ui.button("Logout").clicked() {
+                        logout_clicked = true;
+                    }
                 });
+                if logout_clicked {
+                    bsod();
+                }
             }
         } else {
             egui::CentralPanel::default().show(ctx, |ui| {
