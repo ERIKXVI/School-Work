@@ -1,40 +1,10 @@
-﻿  battleship.cpp
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(16,5): error C2535: 'BattleshipGame::BattleshipGame(void)': member function already defined or declared
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(15,5): message : see declaration of 'BattleshipGame::BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(4,17): error C2511: 'BattleshipGame::BattleshipGame(int)': overloaded member function not found in 'BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(7,7): message : see declaration of 'BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(5,5): error C2597: illegal reference to non-static member 'BattleshipGame::boardSize'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(9,9): message : see declaration of 'BattleshipGame::boardSize'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(6,18): error C2597: illegal reference to non-static member 'BattleshipGame::boardSize'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(9,9): message : see declaration of 'BattleshipGame::boardSize'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(6,47): error C2597: illegal reference to non-static member 'BattleshipGame::boardSize'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(9,9): message : see declaration of 'BattleshipGame::boardSize'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(6,58): error C2597: illegal reference to non-static member 'BattleshipGame::EMPTY_CELL'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(11,16): message : see declaration of 'BattleshipGame::EMPTY_CELL'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(74,24): error C2665: 'BattleshipGame::BattleshipGame': no overloaded function could convert all the argument types
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(21,1): message : could be 'BattleshipGame::BattleshipGame(BattleshipGame &&)'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(74,24): message : 'BattleshipGame::BattleshipGame(BattleshipGame &&)': cannot convert argument 1 from 'int' to 'BattleshipGame &&'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(74,25): message : Reason: cannot convert from 'int' to 'BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(21,1): message : or       'BattleshipGame::BattleshipGame(const BattleshipGame &)'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(74,24): message : 'BattleshipGame::BattleshipGame(const BattleshipGame &)': cannot convert argument 1 from 'int' to 'const BattleshipGame &'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(74,25): message : Reason: cannot convert from 'int' to 'const BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.cpp(74,24): message : while trying to match the argument list '(int)'
-  blackjack.cpp
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\blackjack.cpp(22,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  blackjack.cpp
+C:\Users\erikf\Documents\GitHub\School-Work\mini games\games\blackjack.cpp(22,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   hangman.cpp
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\hangman.cpp(15,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\erikf\Documents\GitHub\School-Work\mini games\games\hangman.cpp(15,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   snake.cpp
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\snake.cpp(11,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\erikf\Documents\GitHub\School-Work\mini games\games\snake.cpp(11,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   tictactoe.cpp
   main.cpp
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(16,5): error C2535: 'BattleshipGame::BattleshipGame(void)': member function already defined or declared
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(15,5): message : see declaration of 'BattleshipGame::BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\main.cpp(125,46): error C2665: 'BattleshipGame::BattleshipGame': no overloaded function could convert all the argument types
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(21,1): message : could be 'BattleshipGame::BattleshipGame(BattleshipGame &&)'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\main.cpp(125,46): message : 'BattleshipGame::BattleshipGame(BattleshipGame &&)': cannot convert argument 1 from 'int' to 'BattleshipGame &&'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\main.cpp(125,47): message : Reason: cannot convert from 'int' to 'BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\games\battleship.h(21,1): message : or       'BattleshipGame::BattleshipGame(const BattleshipGame &)'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\main.cpp(125,46): message : 'BattleshipGame::BattleshipGame(const BattleshipGame &)': cannot convert argument 1 from 'int' to 'const BattleshipGame &'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\main.cpp(125,47): message : Reason: cannot convert from 'int' to 'const BattleshipGame'
-C:\Users\erikf\Documents\tutorials\School-Work\mini games\main.cpp(125,46): message : while trying to match the argument list '(int)'
   Generating Code...
+  mini games.vcxproj -> C:\Users\erikf\Documents\GitHub\School-Work\mini games\x64\Debug\mini games.exe

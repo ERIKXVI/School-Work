@@ -1,0 +1,11 @@
+C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\deps\liblibloading-d76d11155b8076d9.rmeta: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\changelog.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\os\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\os\windows\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\util.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\error.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\safe.rs
+
+C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\deps\libloading-d76d11155b8076d9.d: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\changelog.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\os\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\os\windows\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\util.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\error.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\safe.rs
+
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\lib.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\changelog.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\os\mod.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\os\windows\mod.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\util.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\error.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\libloading-0.7.4\src\safe.rs:

@@ -1,0 +1,8 @@
+C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\deps\libinstant-f2d2c5bf5789c367.rmeta: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\native.rs
+
+C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\deps\libinstant-f2d2c5bf5789c367.rlib: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\native.rs
+
+C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\deps\instant-f2d2c5bf5789c367.d: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\native.rs
+
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\lib.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\instant-0.1.13\src\native.rs:

@@ -1,0 +1,10 @@
+C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\deps\libgilrs_core-9e49db83cd41ad6b.rmeta: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\ff.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\gamepad.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\utils.rs
+
+C:\Users\erikf\Documents\GitHub\School-Work\rpg\target\debug\deps\gilrs_core-9e49db83cd41ad6b.d: C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\lib.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\mod.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\ff.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\gamepad.rs C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\utils.rs
+
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\lib.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\mod.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\mod.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\ff.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\platform\windows\gamepad.rs:
+C:\Users\erikf\.cargo\registry\src\index.crates.io-6f17d22bba15001f\gilrs-core-0.3.2\src\utils.rs:
