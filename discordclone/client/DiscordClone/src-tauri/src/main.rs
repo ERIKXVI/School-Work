@@ -1,21 +1,20 @@
 use futures_util::StreamExt;
+use futures_util::SinkExt; // Add this line
 use std::sync::{Arc, Mutex};
 use tokio::net::TcpStream;
 use tokio_tungstenite::{connect_async, tungstenite::protocol::Message, MaybeTlsStream, WebSocketStream};
-use tauri::command;
-use tauri::App;
 use std::sync::RwLock;
 use once_cell::sync::Lazy;
 
-static WS_STREAM: Lazy<RwLock<Option<WebSocketStream<MaybeTlsStream<TcpStream>>>>> = Lazy::new(|| RwLock::new(None));
+static WS_STREAM: Lazy<RwLock<Option<Arc<Mutex<WebSocketStream<MaybeTlsStream<TcpStream>>>>>> = Lazy::new(|| RwLock::new(None));
 
 #[tauri::command]
 async fn connect_to_server(window: tauri::Window, url: String) {
     let (ws_stream, _) = connect_async(&url).await.unwrap();
-    *WS_STREAM.write().unwrap() = Some(ws_stream.clone());
+    let ws_stream = Arc::new(Mutex::new(ws_stream)); // Wrap ws_stream in Arc<Mutex<>> here
+    *WS_STREAM.write().unwrap() = Some(ws_stream.clone()); // Now you can clone it
 
     tokio::spawn(async move {
-        let ws_stream = Arc::new(Mutex::new(ws_stream));
         let mut ws_stream = ws_stream.lock().unwrap();
         while let Some(msg) = ws_stream.next().await {
             match msg {

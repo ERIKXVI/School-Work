@@ -6,8 +6,8 @@ use crossterm::{
 };
 use std::{thread, time::Duration};
 
-const WIDTH: u32 = 10;
-const HEIGHT: u32 = 10;
+const WIDTH: u32 = 15;
+const HEIGHT: u32 = 20;
 const PLAYER: char = '^';
 const BULLET: char = '|';
 const ALIEN: char = 'v';
@@ -42,7 +42,7 @@ impl Game {
             alien_direction: 1,
             bullet_speed: 5,
             multi_shot: false,
-            points: 1000,
+            points: 0,
             game_over: false,
             shot_cooldown: SHOT_COOLDOWN,
             level: initial_level,
