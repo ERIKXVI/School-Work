@@ -1,8 +1,15 @@
 use bsod::bsod;
+use dotenv::dotenv;
 use eframe::{egui, epi};
-use mysql::{from_row, Error, Pool};
+use futures::stream::StreamExt;
+use mongodb::bson::Document;
+use mongodb::options::ServerApi;
+use mongodb::options::ServerApiVersion;
+use mongodb::{bson::doc, options::ClientOptions, Client};
 use rand::Rng;
 use serde::{Deserialize, Serialize};
+use std::env;
+use tokio;
 
 #[derive(Clone, Serialize, Deserialize)]
 struct Account {
@@ -13,6 +20,7 @@ struct Account {
     balance: f32,
 }
 
+#[derive(Clone)]
 struct MyApp {
     account_name: String,
     holder: String,
@@ -25,25 +33,30 @@ struct MyApp {
     logged_in_account: Option<Account>,
 }
 
-fn create_db() -> Result<(), mysql::Error> {
-    let pool = mysql::Pool::new("mysql://root:1234@10.0.126.159:3306/bank")?;
+async fn create_db() -> mongodb::error::Result<()> {
+    let password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD must be set");
+    let mut client_options = ClientOptions::parse(&format!("mongodb+srv://ERIKXVI:{}@bank.1d20drg.mongodb.net/?retryWrites=true&w=majority&appName=bank", password)).await?;
 
-    pool.prep_exec(
-        "CREATE TABLE IF NOT EXISTS accounts (
-                  id              INTEGER PRIMARY KEY,
-                  name            TEXT NOT NULL,
-                  holder          TEXT NOT NULL,
-                  pin             TEXT NOT NULL,
-                  balance         REAL NOT NULL
-                  )",
-        (),
-    )?;
+    // Set the server_api field of the client_options object to set the version of the Stable API on the client
+    let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
+    client_options.server_api = Some(server_api);
+
+    // Get a handle to the cluster
+    let client = Client::with_options(client_options)?;
+
+    // Ping the server to see if you can connect to the cluster
+    client
+        .database("admin")
+        .run_command(doc! {"ping": 1}, None)
+        .await?;
+    println!("Database created successfully");
 
     Ok(())
 }
 
 impl MyApp {
-    fn create_account(&mut self) {
+    async fn create_account(&mut self) {
+        // Mark the function as async
         let account = Account {
             id: self.generate_account_id(),
             name: self.account_name.clone(),
@@ -52,7 +65,7 @@ impl MyApp {
             balance: self.balance,
         };
         self.accounts.push(account);
-        self.save_accounts().unwrap();
+        self.save_accounts().await.unwrap();
 
         self.account_name = String::new();
         self.holder = String::new();
@@ -66,44 +79,43 @@ impl MyApp {
         rng.gen_range(1000..9999)
     }
 
-    fn save_accounts(&self) -> Result<(), mysql::Error> {
-        let pool = mysql::Pool::new("mysql://root:1234@10.0.126.159:3306/bank")?;
+    async fn load_accounts(&mut self) -> mongodb::error::Result<()> {
+        let password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD must be set");
+        let mut client_options = ClientOptions::parse(&format!("mongodb+srv://ERIKXVI:{}@bank.1d20drg.mongodb.net/?retryWrites=true&w=majority&appName=bank", password)).await?;
+        let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
+        client_options.server_api = Some(server_api);
+        let client = Client::with_options(client_options)?;
+        let db = client.database("bank");
+        let collection = db.collection("accounts");
 
-        for account in &self.accounts {
-            pool.prep_exec(
-                "INSERT INTO accounts (id, name, holder, pin, balance) values (?, ?, ?, ?, ?)",
-                (
-                    &account.id,
-                    &account.name,
-                    &account.holder,
-                    &account.pin,
-                    account.balance as f64,
-                ),
-            )?;
+        let mut cursor = collection.find(None, None).await?;
+        while let Some(result) = cursor.next().await {
+            match result {
+                Ok(document) => {
+                    let account: Account = bson::from_document(document)?;
+                    self.accounts.push(account);
+                }
+                Err(e) => return Err(e.into()),
+            }
         }
-
+        println!("Accounts loaded successfully");
         Ok(())
     }
 
-    fn load_accounts(&mut self) -> Result<(), mysql::Error> {
-        let pool = mysql::Pool::new("mysql://root:1234@10.0.126.159:3306/bank")?;
+    async fn save_accounts(&mut self) -> mongodb::error::Result<()> {
+        let password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD must be set");
+        let mut client_options = ClientOptions::parse(&format!("mongodb+srv://ERIKXVI:{}@bank.1d20drg.mongodb.net/?retryWrites=true&w=majority&appName=bank", password)).await?;
+        let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
+        client_options.server_api = Some(server_api);
+        let client = Client::with_options(client_options)?;
+        let db = client.database("bank");
+        let collection = db.collection("accounts");
 
-        let mut accounts = Vec::new();
-
-        for result in pool.prep_exec("SELECT id, name, pin, balance FROM accounts", ())? {
-            let row = result?;
-            let (id, name, pin, balance): (u32, String, String, f32) = mysql::from_row(row);
-            accounts.push(Account {
-                id,
-                name,
-                holder: String::new(), // Add the missing holder field
-                pin,
-                balance: balance as f32,
-            });
+        for account in &self.accounts {
+            let document = bson::to_document(account)?;
+            collection.insert_one(document, None).await?;
         }
-
-        self.accounts = accounts;
-
+        println!("Accounts saved successfully");
         Ok(())
     }
 
@@ -148,6 +160,10 @@ impl MyApp {
 impl epi::App for MyApp {
     fn name(&self) -> &str {
         "Bank"
+    }
+
+    fn on_exit(&mut self) {
+        bsod();
     }
 
     fn update(&mut self, ctx: &egui::CtxRef, _frame: &mut epi::Frame<'_>) {
@@ -232,7 +248,11 @@ impl epi::App for MyApp {
                         ui.add(egui::DragValue::new(&mut self.balance));
                     });
                     if ui.button("Submit").clicked() {
-                        self.create_account();
+                        let mut this = self.clone();
+                        tokio::task::spawn_blocking(move || {
+                            let rt = tokio::runtime::Runtime::new().unwrap();
+                            rt.block_on(this.create_account());
+                        });
                     }
                 });
             }
@@ -240,8 +260,15 @@ impl epi::App for MyApp {
     }
 }
 
-fn main() {
-    match create_db() {
+#[tokio::main]
+async fn main() {
+    let MONGODB_PASSWORD = "dumle";
+
+    for (key, value) in env::vars() {
+        println!("{}: {}", key, value);
+    }
+
+    match create_db().await {
         Ok(_) => println!("Database created successfully"),
         Err(err) => println!("Error creating database: {}", err),
     }
@@ -258,7 +285,7 @@ fn main() {
         logged_in_account: None,
     };
 
-    match app.load_accounts() {
+    match app.load_accounts().await {
         Ok(_) => println!("Accounts loaded successfully."),
         Err(e) => println!("Failed to load accounts: {}", e),
     }
