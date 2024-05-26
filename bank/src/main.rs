@@ -1,6 +1,7 @@
 use bsod::bsod;
 use dotenv::dotenv;
 use eframe::{egui, epi};
+use futures::future::Lazy;
 use futures::stream::StreamExt;
 use mongodb::bson::Document;
 use mongodb::options::ServerApi;
@@ -9,6 +10,7 @@ use mongodb::{bson::doc, options::ClientOptions, Client};
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 use std::env;
+use std::string;
 use tokio;
 
 #[derive(Clone, Serialize, Deserialize)]
@@ -29,12 +31,17 @@ struct MyApp {
     show_login: bool,
     show_create_account: bool,
     show_account_details: bool,
+    show_deposit: bool,
+    show_withdraw: bool,
+    show_transfer: bool,
+    amount: String,
     accounts: Vec<Account>,
     logged_in_account: Option<Account>,
+    account_id: String,
 }
 
 async fn create_db() -> mongodb::error::Result<()> {
-    let password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD must be set");
+    let password = "dumle".to_string();
     let mut client_options = ClientOptions::parse(&format!("mongodb+srv://ERIKXVI:{}@bank.1d20drg.mongodb.net/?retryWrites=true&w=majority&appName=bank", password)).await?;
 
     // Set the server_api field of the client_options object to set the version of the Stable API on the client
@@ -56,7 +63,6 @@ async fn create_db() -> mongodb::error::Result<()> {
 
 impl MyApp {
     async fn create_account(&mut self) {
-        // Mark the function as async
         let account = Account {
             id: self.generate_account_id(),
             name: self.account_name.clone(),
@@ -80,7 +86,7 @@ impl MyApp {
     }
 
     async fn load_accounts(&mut self) -> mongodb::error::Result<()> {
-        let password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD must be set");
+        let password = "dumle".to_string();
         let mut client_options = ClientOptions::parse(&format!("mongodb+srv://ERIKXVI:{}@bank.1d20drg.mongodb.net/?retryWrites=true&w=majority&appName=bank", password)).await?;
         let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
         client_options.server_api = Some(server_api);
@@ -103,7 +109,7 @@ impl MyApp {
     }
 
     async fn save_accounts(&mut self) -> mongodb::error::Result<()> {
-        let password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD must be set");
+        let password = "dumle".to_string();
         let mut client_options = ClientOptions::parse(&format!("mongodb+srv://ERIKXVI:{}@bank.1d20drg.mongodb.net/?retryWrites=true&w=majority&appName=bank", password)).await?;
         let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
         client_options.server_api = Some(server_api);
@@ -137,13 +143,12 @@ impl MyApp {
         }
     }
 
-    #[allow(dead_code)]
     fn deposit(&mut self, amount: f32) {
         if let Some(account) = &mut self.logged_in_account {
             account.balance += amount;
         }
     }
-    #[allow(dead_code)]
+
     fn withdraw(&mut self, amount: f32) {
         if let Some(account) = &mut self.logged_in_account {
             if account.balance >= amount {
@@ -151,6 +156,27 @@ impl MyApp {
             } else {
                 // Show error message here
             }
+        }
+    }
+
+    fn transfer(&mut self, to_account_id: String, amount: f32) {
+        if let Some(account) = &mut self.logged_in_account {
+            if account.balance >= amount {
+                account.balance -= amount;
+                if let Some(to_account) = self
+                    .accounts
+                    .iter_mut()
+                    .find(|a| a.id.to_string() == to_account_id)
+                {
+                    to_account.balance += amount;
+                } else {
+                    println!("No account found")
+                }
+            } else {
+                println!("your broke")
+            }
+        } else {
+            println!("your not even logged in")
         }
     }
 
@@ -175,13 +201,13 @@ impl epi::App for MyApp {
                     ui.label(format!("Account Holder: {}", account.holder));
                     ui.label(format!("Balance: {}", account.balance));
                     if ui.button("Deposit").clicked() {
-                        // Implement deposit functionality here
+                        self.show_deposit = true;
                     }
                     if ui.button("Withdraw").clicked() {
-                        // Implement withdraw functionality here
+                        self.show_withdraw = true;
                     }
                     if ui.button("Transfer").clicked() {
-                        // Implement transfer functionality here
+                        self.show_transfer = true;
                     }
                     if ui.button("Logout").clicked() {
                         logout_clicked = true;
@@ -189,6 +215,39 @@ impl epi::App for MyApp {
                 });
                 if logout_clicked {
                     bsod();
+                }
+                if self.show_deposit {
+                    egui::Window::new("Deposit").show(ctx, |ui| {
+                        ui.add(egui::widgets::TextEdit::singleline(&mut self.amount));
+                        if ui.button("Submit").clicked() {
+                            self.deposit(self.amount.parse().unwrap_or(0.0));
+                            self.show_deposit = false;
+                        }
+                    });
+                }
+
+                if self.show_withdraw {
+                    egui::Window::new("Withdraw").show(ctx, |ui| {
+                        ui.add(egui::widgets::TextEdit::singleline(&mut self.amount));
+                        if ui.button("Submit").clicked() {
+                            self.withdraw(self.amount.parse().unwrap_or(0.0));
+                            self.show_withdraw = false;
+                        }
+                    });
+                }
+
+                if self.show_transfer {
+                    egui::Window::new("Transfer").show(ctx, |ui| {
+                        ui.add(egui::widgets::TextEdit::singleline(&mut self.amount));
+                        ui.add(egui::widgets::TextEdit::singleline(&mut self.account_id));
+                        if ui.button("Submit").clicked() {
+                            self.transfer(
+                                self.account_id.clone(),
+                                self.amount.parse().unwrap_or(0.0),
+                            );
+                            self.show_transfer = false;
+                        }
+                    });
                 }
             }
         } else {
@@ -231,6 +290,9 @@ impl epi::App for MyApp {
 
             if self.show_create_account {
                 egui::Window::new("Create Account").show(ctx, |ui| {
+                    if ui.button("Close").clicked() {
+                        self.show_create_account = false;
+                    }
                     ui.horizontal(|ui| {
                         ui.label("Account Name:");
                         ui.text_edit_singleline(&mut self.account_name);
@@ -262,8 +324,6 @@ impl epi::App for MyApp {
 
 #[tokio::main]
 async fn main() {
-    let MONGODB_PASSWORD = "dumle";
-
     for (key, value) in env::vars() {
         println!("{}: {}", key, value);
     }
@@ -281,8 +341,13 @@ async fn main() {
         show_login: false,
         show_create_account: false,
         show_account_details: false,
+        show_deposit: false,       // Provide this field
+        show_withdraw: false,      // Provide this field
+        show_transfer: false,      // Provide this field
+        amount: String::from("0"), // Provide this field
         accounts: Vec::new(),
         logged_in_account: None,
+        account_id: String::from("0"),
     };
 
     match app.load_accounts().await {

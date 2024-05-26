@@ -8,11 +8,17 @@ function App() {
 
   useEffect(() => {
     invoke('connect_to_server', {
-      url: 'ws://localhost:3000/ws',
+      url: 'ws://127.0.0.1:3000/ws',
     })
-      .catch((error) => console.error(error));
+      .then(() => {
+        console.log('Connected to server successfully');
+      })
+      .catch((error) => {
+        console.error('Failed to connect to server:', error);
+      });
 
     listen('message', (event) => {
+      console.log('Received message:', event.payload);
       setMessages(prevMessages => [...prevMessages, event.payload]);
     });
   }, []);
@@ -23,7 +29,7 @@ function App() {
         console.log('Message sent successfully');
       })
       .catch((error) => {
-        console.log('Failed to send message:', error);
+        console.error('Failed to send message:', error);
       });
     setMessage('')
   }

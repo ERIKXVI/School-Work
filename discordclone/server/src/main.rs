@@ -14,9 +14,13 @@ async fn handle_connection(mut ws: WebSocketStream<Upgraded>) {
         match msg {
             Ok(msg) => {
                 println!("Received message: {}", msg);
-                ws.send(msg).await.unwrap();
+                if let Err(e) = ws.send(msg).await {
+                    println!("Failed to send message: {:?}", e);
+                    break;
+                }
             }
-            Err(_) => {
+            Err(e) => {
+                println!("Failed to receive message: {:?}", e);
                 break;
             }
         }
@@ -28,6 +32,7 @@ async fn handle(req: Request<Body>) -> Result<Response<Body>, Infallible> {
         (&Method::GET, "/") => Ok(Response::new(Body::from("Hello, World!"))),
         (&Method::GET, "/ws") => match hyper::upgrade::on(req).await {
             Ok(upgraded) => {
+                println!("Connection upgrade successful");
                 let ws_stream = WebSocketStream::from_raw_socket(
                     upgraded,
                     tokio_tungstenite::tungstenite::protocol::Role::Server,
@@ -37,7 +42,8 @@ async fn handle(req: Request<Body>) -> Result<Response<Body>, Infallible> {
                 tokio::spawn(handle_connection(ws_stream));
                 Ok(Response::new(Body::empty()))
             }
-            Err(_) => {
+            Err(e) => {
+                println!("Failed to upgrade connection: {:?}", e);
                 let mut not_found = Response::default();
                 *not_found.status_mut() = StatusCode::NOT_FOUND;
                 Ok(not_found)
@@ -61,7 +67,9 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
     println!("Listening on http://{}", addr);
 
-    server.await?;
+    if let Err(e) = server.await {
+        println!("Server error: {:?}", e);
+    }
 
     Ok(())
 }
