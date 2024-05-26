@@ -179,8 +179,6 @@ impl MyApp {
             println!("your not even logged in")
         }
     }
-
-    // Implement the transfer method here
 }
 
 impl epi::App for MyApp {
