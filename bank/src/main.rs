@@ -44,14 +44,11 @@ async fn create_db() -> mongodb::error::Result<()> {
     let password = "dumle".to_string();
     let mut client_options = ClientOptions::parse(&format!("mongodb+srv://ERIKXVI:{}@bank.1d20drg.mongodb.net/?retryWrites=true&w=majority&appName=bank", password)).await?;
 
-    // Set the server_api field of the client_options object to set the version of the Stable API on the client
     let server_api = ServerApi::builder().version(ServerApiVersion::V1).build();
     client_options.server_api = Some(server_api);
 
-    // Get a handle to the cluster
     let client = Client::with_options(client_options)?;
 
-    // Ping the server to see if you can connect to the cluster
     client
         .database("admin")
         .run_command(doc! {"ping": 1}, None)
@@ -154,7 +151,7 @@ impl MyApp {
             if account.balance >= amount {
                 account.balance -= amount;
             } else {
-                // Show error message here
+                println!("Failed to withdraw")
             }
         }
     }
@@ -280,7 +277,7 @@ impl epi::App for MyApp {
                         if self.login(name, pin) {
                             self.show_login = false;
                         } else {
-                            // Show error message here
+                            println!("Failed to login")
                         }
                     }
                 });
@@ -339,10 +336,10 @@ async fn main() {
         show_login: false,
         show_create_account: false,
         show_account_details: false,
-        show_deposit: false,       // Provide this field
-        show_withdraw: false,      // Provide this field
-        show_transfer: false,      // Provide this field
-        amount: String::from("0"), // Provide this field
+        show_deposit: false,
+        show_withdraw: false,
+        show_transfer: false,
+        amount: String::from("0"),
         accounts: Vec::new(),
         logged_in_account: None,
         account_id: String::from("0"),
