@@ -184,7 +184,7 @@ impl epi::App for MyApp {
     }
 
     fn on_exit(&mut self) {
-        bsod();
+        //bsod();
     }
 
     fn update(&mut self, ctx: &egui::CtxRef, _frame: &mut epi::Frame<'_>) {
